@@ -1,0 +1,19 @@
+.container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.mat-list-item {
+  cursor: pointer;
+}
+
+.mat-list-icon {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.router-link-active {
+  background-color: #eee;
+}

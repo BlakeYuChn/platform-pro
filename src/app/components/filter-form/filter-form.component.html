@@ -1,0 +1,59 @@
+<form class="container" [formGroup]="fg">
+  <ng-container *ngFor="let item of formConfig">
+    <!-- input -->
+    <ng-container *ngIf="item.type === 'input'">
+      <mat-form-field>
+        <mat-label>{{ item.title }}</mat-label>
+        <input matInput [formControlName]="item.value" />
+      </mat-form-field>
+    </ng-container>
+    <!-- select & select multi -->
+    <ng-container *ngIf="item.type === 'select'">
+      <mat-form-field>
+        <mat-label>{{ item.title }}</mat-label>
+        <mat-select [formControlName]="item.value" [multiple]="item.multi">
+          <mat-option
+            *ngFor="let option of item.options"
+            [value]="option.value"
+          >
+            {{ option.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </ng-container>
+    <!-- autocomplete -->
+    <ng-container *ngIf="item.type === 'autocomplete'">
+      <mat-form-field>
+        <mat-label>{{ item.title }}</mat-label>
+        <input
+          type="text"
+          aria-label="Number"
+          matInput
+          [formControlName]="item.value"
+          [matAutocomplete]="auto"
+        />
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option
+            *ngFor="let option of fOptions[item.value] | async"
+            [value]="option.label"
+          >
+            {{ option.label }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </ng-container>
+    <!-- date -->
+    <ng-container *ngIf="item.type === 'date'">
+      <mat-form-field>
+        <mat-label>{{ item.title }}</mat-label>
+        <input matInput [matDatepicker]="dp" [formControlName]="item.value" />
+        <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+        <mat-datepicker #dp disabled="false"></mat-datepicker>
+      </mat-form-field>
+    </ng-container>
+  </ng-container>
+  <button mat-stroked-button style="margin-right: 12px;" (click)="resetForm()">
+    重置
+  </button>
+  <button mat-flat-button color="primary" (click)="inquiryForm()">查询</button>
+</form>

@@ -1,0 +1,27 @@
+<mat-drawer-container class="container">
+  <mat-drawer mode="side" opened>
+    <mat-list>
+      <div mat-subheader>Folders</div>
+      <mat-list-item
+        *ngFor="let folder of folders"
+        matRipple
+        [routerLink]="['/' + folder.router]"
+        routerLinkActive="router-link-active"
+      >
+        <mat-icon mat-list-icon>folder</mat-icon>
+        <div mat-line>{{ folder.name }}</div>
+        <div mat-line>{{ folder.updated | date }}</div>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <div mat-subheader>Notes</div>
+      <mat-list-item *ngFor="let note of notes" matRipple>
+        <mat-icon mat-list-icon>note</mat-icon>
+        <div mat-line>{{ note.name }}</div>
+        <div mat-line>{{ note.updated | date }}</div>
+      </mat-list-item>
+    </mat-list>
+  </mat-drawer>
+  <mat-drawer-content>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>
